@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Árvore de Decisão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    
+    <header class="app-header">
+      <div class="header-title">
+        <h1>Árvore de Decisão</h1>
+      </div>
+      <div class="header-actions">
+        <button id="btnNewDecision" class="btn btn-primary">+ Nova decisão</button>
+        <button id="btnResetExample" class="btn btn-secondary">Resetar exemplo</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="tree-panel">
+        <div class="panel-header">
+          <h2>Visualização da Árvore</h2>
+          <div id="treeStatusMessage" class="tree-status-message"></div>
+        </div>
+        
+        <div class="tree-scroll-area" id="treeScrollArea">
+          <div class="tree-wrapper" id="treeWrapper">
+            <svg id="treeSvg" class="tree-svg-canvas"></svg>
+            <div id="treeRootContainer" class="tree-nodes-container"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="summary-panel">
+        <div class="panel-header">
+          <h2>Resumo dos Resultados</h2>
+        </div>
+        <div class="summary-content">
+          <table class="data-table" id="summaryTable">
+            <thead>
+              <tr>
+                <th>Alternativa</th>
+                <th>Cenários</th>
+                <th>Status das Probabilidades</th>
+                <th class="text-right">Valor Esperado</th>
+              </tr>
+            </thead>
+            <tbody id="summaryTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-backdrop" id="decisionModal">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <h3 id="modalTitle">Editar Decisão</h3>
+          <button type="button" class="btn-close" id="btnCloseModal">&times;</button>
+        </div>
+
+        <form id="decisionForm">
+          <div class="modal-body">
+            
+            <div class="form-group">
+              <label for="decisionNameInput">Nome da decisão</label>
+              <input type="text" id="decisionNameInput" class="form-input" placeholder="Ex: Compra 20 kg" required>
+            </div>
+
+            <div class="scenarios-section">
+              <div class="scenarios-header">
+                <label>Cenários</label>
+                <span id="probSumIndicator" class="prob-sum-indicator">Total: 100%</span>
+              </div>
+
+              <div id="probWarningAlert" class="alert-box alert-warning" style="display: none;">
+                A soma das probabilidades dos cenários deve totalizar exatamente 100%.
+              </div>
+
+              <table class="scenarios-form-table">
+                <thead>
+                  <tr>
+                    <th>Nome do cenário</th>
+                    <th style="width: 110px;">Probab. (%)</th>
+                    <th style="width: 110px;">Custo (R$)</th>
+                    <th style="width: 110px;">Receita (R$)</th>
+                    <th style="width: 110px;" class="text-right">Lucro</th>
+                    <th style="width: 40px;"></th>
+                  </tr>
+                </thead>
+                <tbody id="modalScenariosTableBody"></tbody>
+              </table>
+
+              <div class="scenarios-actions">
+                <button type="button" id="btnAddScenarioRow" class="btn btn-secondary btn-sm">+ Adicionar cenário</button>
+              </div>
+            </div>
+
+            <div class="ev-preview-box">
+              <span>Valor esperado calculado:</span>
+              <strong id="modalCalculatedEV">R$ 0,00</strong>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btnCancelModal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Salvar alterações</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
